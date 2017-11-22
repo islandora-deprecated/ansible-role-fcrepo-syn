@@ -22,5 +22,3 @@ galaxy_info:
     - installer
     - security
     - jwt
-dependencies:
-  - { role: islandora.tomcat8 }
