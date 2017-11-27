@@ -2,8 +2,8 @@
 
 fcrepo_syn_version: 0.1.0
 fcrepo_syn_folder: /opt/syn
-fcrepo_syn_user: {{ tomcat8_server_user }}
-fcrepo_syn_tomcat_home: {{ tomcat8_home }}
+fcrepo_syn_user:
+fcrepo_syn_tomcat_home:
 fcrepo_syn_sites: []
 # - url:
 #   algorithm:

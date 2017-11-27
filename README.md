@@ -21,12 +21,12 @@ fcrepo_syn_folder: /opt/syn
 
 User to install Syn with:
 ```
-fcrepo_syn_user: {{ tomcat8_server_user }}
+fcrepo_syn_user:
 ```
 
 Tomcat's home:
 ```
-fcrepo_syn_tomcat_home: {{ tomcat8_home }}
+fcrepo_syn_tomcat_home:
 ```
 
 Sites on Tomcat to install a key to decode JWTs:
@@ -51,13 +51,15 @@ fcrepo_syn_tokens: []
 
 ## Dependencies
 
-* [islandora.tomcat8](https://github.com/Islandora-DevOps/ansible-role-tomcat8)
+* Islandora-Devops.tomcat8
+     * [Github](https://github.com/Islandora-Devops/ansible-role-tomcat8)
+     * [Galaxy](https://galaxy.ansible.com/Islandora-Devops/tomcat8/)
   
 ## Example Playbook
 
     - hosts: webservers
       roles:
-        - { role: islandora.fcrepo-syn }
+        - { role: Islandora-Devops.fcrepo-syn }
 
 ## License
 
