@@ -1,14 +1,34 @@
 ---
 
 - name: Get SSL keys
-  include_role: 
+  include_role:
     name: Islandora-Devops.keymaster
   vars:
     ssl_key_public_output_path: "{{ fcrepo_syn_default_public_key_path }}"
 
 - name: Copy templated syn-settings.xml
   template:
-    src: syn-settings.xml
-    dest: "{{fcrepo_syn_tomcat_home}}/conf/syn-settings.xml"
+    src: syn-settings.yaml
+    dest: "{{ fcrepo_syn_settings }}"
     owner: "{{fcrepo_syn_user}}"
     group: "{{fcrepo_syn_user}}"
+
+- name: Configure fcrepo to use Syn
+  blockinfile:
+    path: "{{ fcrepo_syn_tomcat_home }}/webapps/fcrepo/WEB-INF/web.xml"
+    insertbefore: "^</web-app>$"
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    block: |
+      <filter>
+        <filter-name>SynFilter</filter-name>
+        <filter-class>ca.islandora.syn.valve.SynFilter</filter-class>
+        <init-param>
+          <param-name>settings-path</param-name>
+          <param-value>{{ fcrepo_syn_settings }}</param-value>
+        </init-param>
+      </filter>
+
+      <filter-mapping>
+        <filter-name>SynFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+      </filter-mapping>

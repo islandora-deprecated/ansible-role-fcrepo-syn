@@ -1,0 +1,20 @@
+#jinja2: trim_blocks:False
+# This file is managed with Ansible
+version: 1
+{% for site in fcrepo_syn_sites -%}
+site:
+  {%- if site.url is defined %}url: {{ site.url }}{%- endif %}
+  {% if site.algorithm is defined %}algorithm: {{ site.algorithm }}{%- endif %}
+  {% if site.encoding is defined %}encoding: {{ site.encoding }}{%- endif %}
+  {% if site.anonymous is defined and site.anonymous %}anonymous: true{%- endif %}
+  {% if site.default is defined and site.default %}default: true{%- endif %}
+  {% if site.path is defined %}path: {{ site.path }}{%- endif %}
+  {% if site.key is defined %}key: {{ site.key }}{%- endif %}
+{%- endfor %}
+
+{% for token in fcrepo_syn_tokens -%}
+token:
+  {% if token.user is defined %}user: {{ token.user }}{%- endif %}
+  {% if token.roles is defined %}roles: {{ token.roles | join(",") }}{%- endif %}
+  value: {{ token.token }}
+{%- endfor %}
