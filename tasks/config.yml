@@ -9,6 +9,38 @@
 - name: Copy templated syn-settings.xml
   template:
     src: syn-settings.xml
-    dest: "{{fcrepo_syn_tomcat_home}}/conf/syn-settings.xml"
-    owner: "{{fcrepo_syn_user}}"
-    group: "{{fcrepo_syn_user}}"
+    dest: "{{ fcrepo_syn_tomcat_home }}/conf/syn-settings.xml"
+    owner: "{{ fcrepo_syn_user }}"
+    group: "{{ fcrepo_syn_user }}"
+
+- name: Add valve
+  lineinfile:
+    path: "{{ fcrepo_syn_tomcat_home }}/conf/context.xml"
+    line: "<Valve className=\"ca.islandora.syn.valve.SynValve\" pathname=\"{{ fcrepo_syn_tomcat_home }}/conf/syn-settings.xml\" />"
+    insertbefore: "</Context>"
+
+- name: Modify web.xml
+  blockinfile:
+    path: "{{ fcrepo_syn_tomcat_home }}/webapps/fcrepo/WEB-INF/web.xml"
+    insertbefore: "^</web-app>$"
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    block: |
+      <security-constraint>
+        <web-resource-collection>
+          <web-resource-name>Fedora4</web-resource-name>
+          <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+          <role-name>*</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+          <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+      </security-constraint>
+      <security-role>
+        <role-name>islandora</role-name>
+      </security-role>
+      <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>fcrepo</realm-name>
+      </login-config>
