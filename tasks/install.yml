@@ -17,7 +17,7 @@
 - name: Move syn jar to webapp
   copy:
     src: "{{ fcrepo_syn_folder }}/islandora-syn-{{ fcrepo_syn_version }}-all.jar"
-    dest: "{{ fcrepo_syn_tomcat_home }}/webapps/fcrepo/WEB-INF/lib/"
+    dest: "{{ fcrepo_syn_tomcat_home }}/lib/"
     remote_src: yes
     owner: "{{ fcrepo_syn_user }}"
     group: "{{ fcrepo_syn_user }}"
