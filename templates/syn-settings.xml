@@ -1,5 +1,5 @@
 <!-- This file is managed with Ansible -->
-<config version='1'>
+<config version='1' header='{{ fcrepo_syn_auth_header }}'>
 {% for site in fcrepo_syn_sites %}
     <site
     {%- if site.url is defined %}
