@@ -51,9 +51,9 @@ fcrepo_syn_tokens: []
 
 ## Dependencies
 
-* Islandora-Devops.tomcat8
-     * [Github](https://github.com/Islandora-Devops/ansible-role-tomcat8)
-     * [Galaxy](https://galaxy.ansible.com/Islandora-Devops/tomcat8/)
+* Islandora-Devops.tomcat9
+     * [Github](https://github.com/Islandora-Devops/ansible-role-tomcat9)
+     * [Galaxy](https://galaxy.ansible.com/Islandora-Devops/tomcat9/)
   
 ## Example Playbook
 
